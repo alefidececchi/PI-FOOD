@@ -5,12 +5,14 @@ const axios = require('axios').default
 const { Op, Sequelize } = require('sequelize')
 
 const { API_KEY } = process.env
+const { searchRAllecipesDB } = require('./recipesDB')
+const { allRecipesAPI, recipesAPI } = require('./recipesAPI')
 const { Recipe, Type } = require('../db.js')
 
-let allRecipesAPI = []
 
 const getRecipes = async (req = request, res = response) => {
     let name = req.query.name
+    let searchInDb = req.query.searchInDb
     try {
         if (name) {
             //SEARCH AT DB
@@ -52,30 +54,18 @@ const getRecipes = async (req = request, res = response) => {
                 res.status(200).send('The recipe doesn\'t exists')
             }
         } else {
-            const { data } = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&offset=0&number=2`)
-            let promises = []
-            data.results.forEach(({ id, image, title }) => {
-                allRecipesAPI.push(({ id, image, title }))
-                promises.push(axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`))
-            })
-            await Promise.all(promises)
-                .then(resp => resp
-                    .forEach(({ data }, i) => {
-                        allRecipesAPI[i] = {
-                            ...allRecipesAPI[i],
-                            dietTypes: data.diets,
-                            dishTypes: data.dishTypes,
-                            healthScore: data.healthScore,
-                            summary: data.summary,
-                            steps: data.analyzedInstructions.length !== 0
-                                ? data.analyzedInstructions[0].steps.map(({ number, step }) => ({ number, step }))
-                                : []
-                        }
-                    }))
-            res.status(200).send(allRecipesAPI)
+            searchInDb = searchInDb ? JSON.parse(searchInDb) : undefined
+            if (Boolean(searchInDb) === searchInDb && searchInDb) {
+                const recipesToReturn = await searchRAllecipesDB()
+                res.status(200).send(recipesToReturn)
+            } else {
+                await recipesAPI()
+                res.status(200).send(allRecipesAPI)
+            }
         }
     } catch (error) {
         throw new Error(error.message)
+        // res.status(404).send(`Sorry, we couldn't find any recipe.`)
     }
 }
 
@@ -91,9 +81,10 @@ const postRecipes = async (req = request, res = response) => {
             }
         })
         recipe.addTypes(typesFounded)
-        res.status(200).send(recipe)
+        res.status(200).send(`Great! You've created a new recipe.`)
     } catch (error) {
-        throw new Error(error.message)
+        // throw new Error(error.message)
+        res.status(404).send(`Something went wrong =(`)
     }
 }
 

@@ -45,7 +45,8 @@ const getRecipesDetails = async (req = request, res = response) => {
             //peticion a API
         }
     } catch (error) {
-        throw new Error(error.message)
+        //new Error(error.message)
+        res.status(404).send(`Sorry, the ID you entered does not exist.`)
     }
 }
 
