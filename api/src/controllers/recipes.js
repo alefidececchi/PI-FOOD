@@ -1,89 +1,52 @@
 require('dotenv').config();
-const { json } = require('body-parser');
 const { request, response } = require('express');
-const axios = require('axios').default
-const { Op, Sequelize } = require('sequelize')
 
-const { API_KEY } = process.env
-const { searchRAllecipesDB } = require('./recipesDB')
-const { allRecipesAPI, recipesAPI } = require('./recipesAPI')
-const { Recipe, Type } = require('../db.js')
+const { createRecipeDB, searchAllRecipesDB, searchRecipesByNameDB } = require('./recipesDB')
+const { allRecipesAPI, searchAllRecipesAPI, searchRecipesByNameAPI } = require('./recipesAPI')
+
 
 
 const getRecipes = async (req = request, res = response) => {
-    let name = req.query.name
+
+    const name = req.query.name
     let searchInDb = req.query.searchInDb
+    let searchAll = req.query.searchAll
     try {
         if (name) {
             //SEARCH AT DB
-            let searchName = await Recipe.findAll({
-                attributes: ['id', 'title', 'image'],
-                where: {
-                    title: {
-                        [Op.substring]: `${name}`
-                    }
-                },
-                include: Type
-            })
-            //==============================
-            if (searchName.length !== 0) {
-                searchName = searchName
-                    .map(({ id, image, title, types }) => ({
-                        id, title, image, dietTypes: types
-                            .map(({ name }) => name)
-                    }))
-            }
+            let search = await searchRecipesByNameDB(name)
             //DO REQUEST
-            const { data } = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&titleMatch=${name}&offset=0&number=2`)
-            let promises = []
-            data.results.forEach(({ id, image, title }) => {
-                searchName.push(({ id, image, title }))
-                promises.push(axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`))
-            })
-            await Promise.all(promises)
-                .then(resp => resp
-                    .forEach(({ data }, i) => {
-                        searchName[searchName.length - promises.length + i] = {
-                            ...searchName[searchName.length - promises.length + i],
-                            dietTypes: data.diets
-                        }
-                    }))
-            if (searchName.length !== 0) {
-                res.status(200).send(searchName)
-            } else {
-                res.status(200).send('The recipe doesn\'t exists')
-            }
+            search = await searchRecipesByNameAPI(name, search)
+            search.length !== 0
+                ? res.status(200).send(search)
+                : res.status(200).send('The recipe doesn\'t exists')
         } else {
             searchInDb = searchInDb ? JSON.parse(searchInDb) : undefined
+            searchAll = searchAll ? JSON.parse(searchAll) : undefined
             if (Boolean(searchInDb) === searchInDb && searchInDb) {
-                const recipesToReturn = await searchRAllecipesDB()
-                res.status(200).send(recipesToReturn)
+                res.status(200).send(await searchAllRecipesDB())
+            } else if (Boolean(searchAll) === searchAll && searchAll) {
+                const recipesDB = await searchAllRecipesDB()
+                await searchAllRecipesAPI()
+                const allRecipes = typeof recipesDB === 'string' ? allRecipesAPI : recipesDB.concat(...allRecipesAPI)
+                res.status(200).send(allRecipes)
             } else {
-                await recipesAPI()
+                await searchAllRecipesAPI()
                 res.status(200).send(allRecipesAPI)
             }
         }
     } catch (error) {
-        throw new Error(error.message)
-        // res.status(404).send(`Sorry, we couldn't find any recipe.`)
+        res.status(404).send(`Sorry, we couldn't find any recipe.`)
     }
 }
 
 const postRecipes = async (req = request, res = response) => {
+
     const { healthScore, image, summary, steps, title, types } = req.body
     try {
-        const recipe = await Recipe.create({ healthScore, image, summary, steps, title })
-        let typesFounded = await Type.findAll({
-            where: {
-                name: {
-                    [Op.or]: types
-                }
-            }
-        })
-        recipe.addTypes(typesFounded)
+        await createRecipeDB(image, healthScore, steps, summary, title, types)
         res.status(200).send(`Great! You've created a new recipe.`)
     } catch (error) {
-        // throw new Error(error.message)
         res.status(404).send(`Something went wrong =(`)
     }
 }
@@ -91,7 +54,6 @@ const postRecipes = async (req = request, res = response) => {
 
 
 module.exports = {
-    allRecipesAPI,
     getRecipes,
     postRecipes,
 }

@@ -1,6 +1,7 @@
+const { Op } = require('sequelize')
 const { Recipe, Type } = require('../db.js')
 
-const searchRAllecipesDB = async () => {
+const searchAllRecipesDB = async () => {
     const recipesDB = await Recipe.findAll({
         include: Type,
         raw: true
@@ -25,6 +26,42 @@ const searchRAllecipesDB = async () => {
     return recipesToReturn
 }
 
+const searchRecipesByNameDB = async (name) => {
+
+    let recipeToReturn = await Recipe.findAll({
+        attributes: ['id', 'title', 'image'],
+        where: {
+            title: {
+                [Op.substring]: `${name}`
+            }
+        },
+        include: Type
+    })
+    if (recipeToReturn.length !== 0) {
+        recipeToReturn = recipeToReturn
+            .map(({ id, image, title, types }) => ({
+                id, title, image, dietTypes: types
+                    .map(({ name }) => name)
+            }))
+    }
+    return recipeToReturn
+}
+
+const createRecipeDB = async (image, healthScore, steps, summary, title, types) => {
+    const recipe = await Recipe.create({ healthScore, image, summary, steps, title })
+    let typesFounded = await Type.findAll({
+        where: {
+            name: {
+                [Op.or]: types
+            }
+        }
+    })
+    recipe.addTypes(typesFounded)
+    return
+}
+
 module.exports = {
-    searchRAllecipesDB
+    createRecipeDB,
+    searchAllRecipesDB,
+    searchRecipesByNameDB
 }
