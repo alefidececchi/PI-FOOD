@@ -10,8 +10,20 @@ module.exports = (sequelize) => {
             autoIncrement: true
         },
         name: {
-            type: DataTypes.ENUM(["gluten free", "dairyFree", "ketogenic", "vegetarian", "lacto-vegetarian", "ovo-vegetarian",
-                "vegan", "pescetarian", "paleo", "primal", "lowFodmap", "whole30"]),
+            type: DataTypes.ENUM([
+                "dairy free",
+                "gluten free",
+                "ketogenic",
+                "lacto ovo vegetarian",
+                "lowFodmap",
+                "ovo vegetarian",
+                "paleolithic",
+                "pescetarian",
+                "primal",
+                "vegan",
+                "vegetarian",
+                "whole 30"
+            ]),
             allowNull: false,
         }
     }, {

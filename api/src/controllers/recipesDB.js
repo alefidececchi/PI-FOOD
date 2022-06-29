@@ -47,16 +47,16 @@ const searchRecipesByNameDB = async (name) => {
     return recipeToReturn
 }
 
-const createRecipeDB = async (image, healthScore, steps, summary, title, types) => {
+const createRecipeDB = async (image, healthScore, steps, summary, title, dietTypes) => {
     const recipe = await Recipe.create({ healthScore, image, summary, steps, title })
-    let typesFounded = await Type.findAll({
+    let dietTypesFounded = await Type.findAll({
         where: {
             name: {
-                [Op.or]: types
+                [Op.or]: dietTypes
             }
         }
     })
-    recipe.addTypes(typesFounded)
+    recipe.addTypes(dietTypesFounded)
     return
 }
 
