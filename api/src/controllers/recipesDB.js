@@ -10,16 +10,17 @@ const searchAllRecipesDB = async () => {
     let recipesToReturn = []
     let recipe = {}
     let types = []
-    let lastTitleRecipe = recipesDB[0].title
+    let lastTitleRecipe = recipesDB[0].title.split(' ').map(t => t[0].toUpperCase() + t.slice(1)).join(' ')
     recipesDB.forEach((r, ind) => {
-        const { id, image, title, } = r;
+        let { healthScore, id, image, title } = r;
+        title = title.split(' ').map(t => t[0].toUpperCase() + t.slice(1)).join(' ')
         if (title !== lastTitleRecipe) {
             recipesToReturn.push(recipe)
             recipe = {};
             types = []
         }
         types.push(r["types.name"]);
-        recipe = { id, image, title, dietTypes: types }
+        recipe = { healthScore, id, image, title, dietTypes: types }
         lastTitleRecipe = title
         if (ind === recipesDB.length - 1) recipesToReturn.push(recipe)
     })

@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useState, InputHTMLAttributes } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
+import { createRecipe } from '../../redux/actions.js'
 
 
 function Form() {
@@ -13,6 +14,7 @@ function Form() {
         title: false,
     })
     const diets = useSelector(state => state.diets)
+    const dispatch = useDispatch()
     const [errors, setErrors] = useState({})
     const [input, setInput] = useState({
         dietTypes: [],
@@ -22,6 +24,7 @@ function Form() {
         summary: "",
         title: "",
     })
+    const message = useSelector(state => state.message)
 
     const handleInputChanges = (e) => {
 
@@ -44,10 +47,24 @@ function Form() {
             });
 
         //SET ERRORS
+        setAllErrors(name, value)
+    }
+
+    const handleSelect = (e) => {
+        let name = e.target.name
+        let value = e.target.value
+        setClick({
+            ...click,
+            [name]: true
+        })
+        setAllErrors(name, value)
+    }
+
+    const setAllErrors = (name, value) => {
         if (name === "dietTypes") {
             let newInput = { ...input }
             if (newInput.dietTypes.indexOf(value) !== -1) {
-                newInput.dietTypes = newInput.dietTypes.filter(d => d !== e.target.value)
+                newInput.dietTypes = newInput.dietTypes.filter(d => d !== value)
                 setErrors(validate(newInput))
             } else {
                 newInput.dietTypes = newInput.dietTypes.concat(value)
@@ -63,32 +80,36 @@ function Form() {
 
     const validate = (input) => {
         let errors = {}
-        if (!input.title.length && click.title) {
-            errors.title = 'must have a title'
-        }
-        if (input.dietTypes === [] && click.dietTypes) {
+        if (input.dietTypes.length === 0 && click.dietTypes) {
             errors.dietTypes = 'please, choose a diet'
         }
-        if (input.summary === "" && click.summary) {
-            errors.summary = 'must have a summary'
+        if (input.image === "" && click.image) {
+            errors.image = 'image required'
         }
-        if (input.steps === "" && click.steps) {
-            errors.steps = 'describe the recipes steps'
+        if (input.summary.length < 20 && click.summary) {
+            errors.summary = 'at least must have 20 characters'
+        }
+        if (input.steps.length < 40 && click.steps) {
+            errors.steps = 'describe the recipes steps (at least 40 characters)'
+        }
+        if (input.title.length < 2 && click.title) {
+            errors.title = 'the recipe must have a title'
         }
         return errors;
     }
-
-    const handleSelect = (e) => {
-        let value = e.target.value
-        let name = e.target.name
-        setClick({
-            ...click,
-            [name]: true
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        dispatch(createRecipe(input))
+        setInput({
+            dietTypes: [],
+            healthScore: 50,
+            image: "",
+            steps: "",
+            summary: "",
+            title: "",
         })
-        setErrors(validate({
-            ...input,
-            [name]: value
-        }))
+        const inputs = document.querySelectorAll('.inputDiet')
+        inputs.forEach(i => i.checked = false)
     }
 
     return (
@@ -97,34 +118,64 @@ function Form() {
                 <img alt='no-name' />
             </div>
             <div className="wrapper">
-                <form>
+                <form onSubmit={handleSubmit} >
                     <div>
-                        <label>Title</label>
-                        <input name="title" onSelect={handleSelect} onChange={handleInputChanges} value={input.title} />
+                        <label> Title </label>
+                        <input
+                            name="title"
+                            onChange={handleInputChanges}
+                            onSelect={handleSelect}
+                            value={input.title}
+                        />
                         {errors.title && (<p>{errors.title}</p>)}
                     </div>
                     <div>
-                        <label>Summary</label>
-                        <textarea name="summary" onSelect={handleSelect} onChange={handleInputChanges} value={input.summary} />
+                        <label> Summary </label>
+                        <textarea
+                            name="summary"
+                            onChange={handleInputChanges}
+                            onSelect={handleSelect}
+                            value={input.summary}
+                        />
                         {errors.summary && (<p>{errors.summary}</p>)}
                     </div>
                     <div>
-                        <label>Health score</label>
-                        <input min={0} max={100} name="healthScore" onChange={handleInputChanges} value={input.healthScore} type={"range"} />
+                        <label> Health score </label>
+                        <input
+                            max={100}
+                            min={0}
+                            name="healthScore"
+                            onChange={handleInputChanges}
+                            type={"range"}
+                            value={input.healthScore}
+                        />
+                        <span> {input.healthScore} </span>
                     </div>
                     <div>
-                        <label>Steps</label>
-                        <input name="steps" onSelect={handleSelect} onChange={handleInputChanges} value={input.steps} />
+                        <label> Steps </label>
+                        <input
+                            name="steps"
+                            onChange={handleInputChanges}
+                            onSelect={handleSelect}
+                            value={input.steps}
+                        />
                         {errors.steps && (<p>{errors.steps}</p>)}
                     </div>
                     <div>
-                        <label>Diet types</label>
+                        <label> Diet types </label>
                         <div>
                             {
                                 diets.map((d, i) => {
                                     return (
                                         <div key={`${d}-${i}`}>
-                                            <input name="dietTypes" onSelect={handleSelect} onChange={handleInputChanges} type={"checkbox"} value={d}></input>
+                                            <input
+                                                className="inputDiet"
+                                                name="dietTypes"
+                                                onChange={handleInputChanges}
+                                                onMouseOver={handleSelect}
+                                                onSelect={handleSelect}
+                                                type={"checkbox"}
+                                                value={d}></input>
                                             <label>{d}</label>
                                         </div>
                                     )
@@ -134,14 +185,36 @@ function Form() {
                         </div>
                     </div>
                     <div>
-                        <label>Image</label>
-                        <input name="image" onChange={handleInputChanges} type={"text"} value={input.image} ></input>
+                        <label> Image (link) </label>
+                        <input
+                            onSelect={handleSelect}
+                            name="image"
+                            onChange={handleInputChanges}
+                            type={"text"}
+                            value={input.image}
+                        />
+                        {errors.image && (<p>{errors.image}</p>)}
                     </div>
                     <div>
-                        <button type={"submit"} >create</button>
+                        {
+                            Object.values(errors).length !== 0
+                                || Object.values(click).find(value => !value) !== undefined
+                                || input.dietTypes.length === 0
+                                || input.image.length === 0
+                                || input.steps.length === 0
+                                || input.summary.length === 0
+                                || input.title.length === 0
+                                ? (<p type="submit"></p>)
+                                : (<button type="submit"> Create </button>)
+                        }
                     </div>
                 </form>
             </div>
+            {
+                message !== ''
+                    ? (<div><p>{message}</p></div>)
+                    : (<></>)
+            }
         </div>
     )
 }
