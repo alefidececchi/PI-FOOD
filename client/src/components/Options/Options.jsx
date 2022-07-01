@@ -1,7 +1,9 @@
 import React from "react";
 
-import SelectOrder from "../SelectOrder/SelectOrder.jsx";
+import Searchbar from '../Searchbar/Searchbar.jsx'
 import SelecDiet from "../SelectDiet/SelectDiet.jsx"
+import SelectOrder from "../SelectOrder/SelectOrder.jsx";
+
 
 function Options() {
 
@@ -9,6 +11,7 @@ function Options() {
         <div>
             <SelectOrder></SelectOrder>
             <SelecDiet></SelecDiet>
+            <Searchbar></Searchbar>
         </div>
     )
 }

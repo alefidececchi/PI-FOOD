@@ -9,13 +9,19 @@ import {
     GET_RECIPE_DETAILS,
     MESSAGE,
     ORDER,
+    RESET_RECIPES,
+    RESET_RECIPES_DETAILS,
+    SET_CURRENT_PAGE,
     SET_ORDER
 } from './actions.js'
 
 
 const initialState = {
+    currentPage: 1,
     diets: [],
     filterType: 'none',
+    indexFirstRecipe: 0,
+    indexLastRecipe: 8,
     message: '',
     orderType: 'default',
     recipeDetails: {},
@@ -79,6 +85,21 @@ function reducer(state = initialState, { type, payload }) {
             return {
                 ...state,
                 recipes: newRecipes
+            }
+        case RESET_RECIPES:
+            return {
+                ...state,
+                recipes: payload
+            }
+        case RESET_RECIPES_DETAILS:
+            return {
+                ...state,
+                recipeDetails: payload
+            }
+        case SET_CURRENT_PAGE:
+            return {
+                ...state,
+                currentPage: payload
             }
         case SET_ORDER:
             return {

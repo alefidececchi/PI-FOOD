@@ -1,9 +1,22 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-function Recipe({ title, image, dietTypes, i }) {
+import { getRecipeDetails } from '../../redux/actions.js'
+
+
+function Recipe({ id, image, dietTypes, title, }) {
+
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const handleClick = () => {
+        dispatch(getRecipeDetails(id))
+        navigate(`/main/${id}`)
+    }
 
     return (
-        <div>
+        <div onClick={handleClick}>
             <h3>{title}</h3>
             <img src={image} alt={title} />
             <div>

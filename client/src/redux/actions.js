@@ -10,7 +10,10 @@ export const GET_RECIPES_BY_NAME = "GET_RECIPES_BY_NAME";
 export const GET_RECIPES_DB = "GET_RECIPES_DB";
 export const GET_RECIPE_DETAILS = "GET_RECIPE_DETAILS"
 export const MESSAGE = "MESSAGE"
-export const SET_ORDER = "SET_ORDER"
+export const RESET_RECIPES = "RESET_RECIPES"
+export const RESET_RECIPES_DETAILS = "RESET_RECIPES_DETAILS";
+export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
+export const SET_ORDER = "SET_ORDER";
 //============ORDER============//
 export const ORDER = "ORDER";
 
@@ -21,6 +24,10 @@ export const createRecipe = (data) => {
             .then(({ data }) => dispatch({ type: CREATE_RECIPE, payload: data }))
             .catch(e => e.message)
     }
+}
+
+export const filterSelected = (filter) => {
+    return ({type: FILTER_SELECTED, payload: filter})
 }
 
 export const getDiets = () => {
@@ -41,8 +48,7 @@ export const getRecipesAll = (filter) => {
         }
     }
     
-    
-    export const getRecipesByName = (name) => {
+export const getRecipesByName = (name) => {
         return (dispatch) => {
         axios.get(`http://localhost:3001/recipes?name=${name}`)
         .then(({ data }) => dispatch({ type: GET_RECIPES_BY_NAME, payload: data }))
@@ -63,16 +69,24 @@ export const message = () => {
     return ({ type: MESSAGE, payload: '' })
 }
 
-export const filterSelected = (filter) => {
-    return ({type: FILTER_SELECTED, payload: filter})
+export const order = (order) => {
+    return ({ type: ORDER, payload: order })
+}
+
+export const resetRecipes = () => {
+    return ({type: RESET_RECIPES, payload: ''})
+}
+
+export const resetRecipesDetails = () => {
+    return ({type: RESET_RECIPES_DETAILS, payload: {}})
+}
+
+export const setCurrentPage = (page) => {
+    return ({type: SET_CURRENT_PAGE, payload: page})
 }
 
 export const setOrder = (setOrder) => {
     return ({type: SET_ORDER, payload:setOrder })
-}
-
-export const order = (order) => {
-    return ({ type: ORDER, payload: order })
 }
 
 // export const getRecipesApi = () => {
