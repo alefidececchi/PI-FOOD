@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { getRecipesByName, resetRecipes } from '../../redux/actions.js'
+import { getRecipesByName, resetRecipes, setCurrentPage } from '../../redux/actions.js'
 
 
 function Searchbar() {
@@ -14,6 +14,8 @@ function Searchbar() {
         dispatch(resetRecipes())
         navigate(`/main?name=${input}`)
         dispatch(getRecipesByName(input))
+        dispatch(setCurrentPage(1))
+        setInput('')
     }
 
     const handleChange = (e) => {

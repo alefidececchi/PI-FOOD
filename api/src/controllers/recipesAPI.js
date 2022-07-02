@@ -6,7 +6,7 @@ let allRecipesAPI = []
 
 const searchAllRecipesAPI = async () => {
     if (allRecipesAPI.length === 0) {
-        const { data } = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&offset=0&number=5`)
+        const { data } = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&offset=0&number=20`)
         let promises = []
         data.results.forEach(({ id, image, title }) => {
             allRecipesAPI.push(({ id, image, title }))
@@ -42,7 +42,8 @@ const searchRecipesByNameAPI = async (name, search) => {
             .forEach(({ data }, i) => {
                 search[search.length - reqById.length + i] = {
                     ...search[search.length - reqById.length + i],
-                    dietTypes: data.diets
+                    dietTypes: data.diets,
+                    healthScore: data.healthScore,
                 }
             }))
     return search

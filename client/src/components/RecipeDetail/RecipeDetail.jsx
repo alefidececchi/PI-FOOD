@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { getRecipeDetails, resetRecipesDetails } from '../../redux/actions.js'
+import { getRecipeDetails, getRecipesAll, resetRecipesDetails } from '../../redux/actions.js'
+import Navbar from "../Navbar/Navbar.jsx";
 
 
 function RecipeDetail() {
@@ -14,13 +15,15 @@ function RecipeDetail() {
 
     useEffect(() => {
         dispatch(getRecipeDetails(id))
+        dispatch(getRecipesAll('none'))
         return dispatch(resetRecipesDetails())
     }, [dispatch, id])
 
     return (
         <div>
+            <Navbar></Navbar>
             {
-                !recipeDetails.title ?
+                !title ?
                     <h3>Loading ...</h3> :
                     <div>
                         <div>
@@ -52,15 +55,20 @@ function RecipeDetail() {
                             </div>
                             <div>
                                 {
-                                    !!steps.length
-                                        ? steps.map(({ number, step }, i) => {
-                                            return (
-                                                <div key={i}>
-                                                    <h4>{number}</h4>
-                                                    <p>{step}</p>
-                                                </div>)
-                                        })
-                                        : <p>There isn't steps for this</p>
+                                    typeof steps === 'string' ?
+                                        <div>
+                                            <h4>1</h4>
+                                            <p>{steps}</p>
+                                        </div> :
+                                        !!steps.length ?
+                                            steps.map(({ number, step }, i) => {
+                                                return (
+                                                    <div key={i}>
+                                                        <h4>{number}</h4>
+                                                        <p>{step}</p>
+                                                    </div>)
+                                            }) :
+                                            <p>There isn't steps for this</p>
                                 }
                             </div>
                         </div>

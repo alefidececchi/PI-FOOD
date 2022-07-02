@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { createRecipe } from '../../redux/actions.js'
+import { createRecipe, getRecipesAll } from '../../redux/actions.js'
+import Navbar from "../Navbar/Navbar.jsx";
 
 
 function Form() {
@@ -112,8 +113,13 @@ function Form() {
         inputs.forEach(i => i.checked = false)
     }
 
+    useEffect(() => {
+        dispatch(getRecipesAll('none'))
+    })
+
     return (
         <div>
+            <Navbar></Navbar>
             <div>
                 <img alt='no-name' />
             </div>

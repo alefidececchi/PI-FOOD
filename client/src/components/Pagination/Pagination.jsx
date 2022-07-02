@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from 'react-redux'
 
 import { setCurrentPage } from "../../redux/actions";
@@ -9,12 +9,9 @@ function Pagination() {
     const currentPage = useSelector(state => state.currentPage)
     const dispatch = useDispatch()
     const recipes = useSelector(state => state.recipes)
-    const [recipesPerPage] = useState(9)
-    const totalRecipes = 50
-    // recipes.lengt
+    const recipesPerPage = useSelector(state => state.recipesPerPage)
+    const totalRecipes = recipes.length
 
-    let indexLastRecipe = (currentPage * recipesPerPage) // NO SE INCLUYE EL ULTIMO INDICE
-    let indexFirstRecipe = indexLastRecipe - recipesPerPage;
 
     const pageNumbers = []
     for (let i = 1; i <= Math.ceil(totalRecipes / recipesPerPage); i++) {

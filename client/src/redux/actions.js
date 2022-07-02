@@ -2,6 +2,8 @@ import axios from 'axios'
 
 //============RECIPES============//
 export const CREATE_RECIPE = "CREATE_RECIPE";
+//============FILTER============//
+export const FILTER_RECIPES_BY_DIET = "FILTER_RECIPES_BY_DIET"
 export const FILTER_SELECTED = "FILTER_SELECTED";
 export const GET_DIETS = "GET_DIETS";
 export const GET_RECIPES_ALL = "GET_RECIPES_ALL";
@@ -13,8 +15,8 @@ export const MESSAGE = "MESSAGE"
 export const RESET_RECIPES = "RESET_RECIPES"
 export const RESET_RECIPES_DETAILS = "RESET_RECIPES_DETAILS";
 export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
-export const SET_ORDER = "SET_ORDER";
 //============ORDER============//
+export const SET_ORDER = "SET_ORDER";
 export const ORDER = "ORDER";
 
 
@@ -40,10 +42,8 @@ export const getDiets = () => {
 
 export const getRecipesAll = (filter) => {
     return async (dispatch) => {
-        (filter
-            ? axios.get(`http://localhost:3001/recipes?filter=${filter}`)
-            : axios.get(`http://localhost:3001/recipes`))
-            .then(({ data }) => dispatch({ type: GET_RECIPES_ALL, payload: data }))
+        axios.get(`http://localhost:3001/recipes`)
+            .then(({ data }) => dispatch({ type: GET_RECIPES_ALL, payload: data, filter: filter}))
             .catch(e => e.message)
         }
     }
@@ -110,9 +110,6 @@ export const setOrder = (setOrder) => {
                 
                 
                 
-                // export const filterRecipeByDiet = (data) => {
-                //     return ({ type: FILTER_RECIPE_BY_DIET, payload: data })
-                // }
                 
                 // export const filterSelectedByDiet = (dietSelected) => {
                 //     return ({ type: FILTER_SELECTED_BY_DIET, payload: dietSelected })

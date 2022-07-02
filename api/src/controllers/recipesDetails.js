@@ -42,7 +42,7 @@ const getRecipesDetails = async (req = request, res = response) => {
             })
             const { image, title, summary, healthScore, steps } = recipe[0]
             const types = recipe.map(r => r["types.name"])
-            const recipeToReturn = { dietTypes: types, id, image, healthScore, steps, summary, title }
+            const recipeToReturn = { dietTypes: types, dishTypes: [], id, image, healthScore, steps, summary, title }
             res.status(200).send(recipeToReturn)
             //peticion a API
         }

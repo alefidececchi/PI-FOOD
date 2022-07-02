@@ -1,11 +1,11 @@
 
 
 
-const filterRecipes = (allRecipes, filter) => {
-    filter = filter.split('_').join(' ')
-    return allRecipes.filter(r => r.dietTypes.includes(filter))
-}
+// const filterRecipes = (allRecipes, filter) => {
+//     filter = filter.split('_').join(' ')
+//     return allRecipes.filter(r => r.dietTypes.includes(filter))
+// }
 
-module.exports = {
-    filterRecipes
-}
+// module.exports = {
+//     filterRecipes
+// }

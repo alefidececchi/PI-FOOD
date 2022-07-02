@@ -10,7 +10,7 @@ function Home() {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getRecipesAll())
+        dispatch(getRecipesAll('none'))
         dispatch(getDiets())
     }, [dispatch])
 

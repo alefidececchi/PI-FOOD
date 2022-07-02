@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getRecipesAll, order, setOrder } from "../../redux/actions.js";
+import { getRecipesAll, order, setCurrentPage, setOrder } from "../../redux/actions.js";
 
 
 
@@ -16,12 +16,12 @@ function SelectOrder() {
         if (value === "default" && filterType !== 'none') {
             dispatch(getRecipesAll(filterType))
         } else if (value === "default" && filterType === 'none') {
-            dispatch(getRecipesAll())
+            dispatch(getRecipesAll('none'))
         } else {
-            // dispatch(getRecipesAll())
             dispatch(order(value))
         }
         dispatch(setOrder(value))
+        dispatch(setCurrentPage(1))
     }
     return (
         <div>

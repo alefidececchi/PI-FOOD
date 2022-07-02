@@ -4,7 +4,7 @@ const { request, response } = require('express');
 const { createRecipeDB, searchAllRecipesDB, searchRecipesByNameDB } = require('./recipesDB')
 const { allRecipesAPI, searchAllRecipesAPI, searchRecipesByNameAPI } = require('./recipesAPI')
 
-const {filterRecipes} = require('./filter.js')
+// const {filterRecipes} = require('./filter.js')
 
 
 
@@ -23,7 +23,7 @@ const getRecipes = async (req = request, res = response) => {
             ? res.status(200).send(search)
             : res.status(200).send('The recipe doesn\'t exists')
         } else {
-            let filter = req.query.filter
+            // let filter = req.query.filter
             // searchInDb = searchInDb ? JSON.parse(searchInDb) : undefined
             // searchAll = searchAll ? JSON.parse(searchAll) : undefined
             // if (Boolean(searchInDb) === searchInDb && searchInDb) {
@@ -32,9 +32,9 @@ const getRecipes = async (req = request, res = response) => {
             await searchAllRecipesAPI()
             const recipesDB = await searchAllRecipesDB()
             let allRecipes = typeof recipesDB === 'string' ? allRecipesAPI : recipesDB.concat(...allRecipesAPI)
-            if(filter) {
-                allRecipes = filterRecipes(allRecipes, filter)
-            }
+            // if(filter) {
+            //     allRecipes = filterRecipes(allRecipes, filter)
+            // }
             res.status(200).send(allRecipes)
             // } else {
             //     await searchAllRecipesAPI()

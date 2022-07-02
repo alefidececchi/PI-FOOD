@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { getRecipesAll, filterSelected } from '../../redux/actions.js'
+import { filterSelected, getRecipesAll, order, setCurrentPage, setOrder } from '../../redux/actions.js'
 
 
 function SelectDiet() {
@@ -10,22 +10,13 @@ function SelectDiet() {
     const dispatch = useDispatch()
     const filterType = useSelector(state => state.filterType)
     // const orderType = useSelector(state => state.orderType)
-    // const recipes = useSelector(state => state.recipes)
     const selectDiet = (e) => {
-        // console.log(filterType)
-        // console.log(typeof e.target.value, e.target.value)
         let value = e.target.value
+        dispatch(getRecipesAll(value))
         dispatch(filterSelected(value))
-        const filter = e.target.value.split(' ').join('_')
-        e.target.value !== 'none'
-            ? dispatch(getRecipesAll(filter))
-            : dispatch(getRecipesAll())
+        dispatch(setOrder('default'))
+        dispatch(setCurrentPage(1))
     }
-
-    // useEffect(() => {
-    //     dispatch(order(orderType))
-    // }, [dispatch, orderType])
-
 
     return (
         <div>
