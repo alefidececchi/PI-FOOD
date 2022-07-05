@@ -1,0 +1,32 @@
+select {
+    height: 30px;
+    padding: 1px;
+    border-radius: 8px;
+    border: none;
+    padding: 2px
+}
+input {
+    border-radius: 8px;
+    border: none;
+    height: 20px;
+}
+button {
+    border-radius: 8px;
+    border: none;
+    height: 30px;
+}
+
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 800px;
+    height: 3rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    background-color: rgb(233 183 185);
+    border-radius: 8px;
+}
+

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux'
 
 import { getRecipesAll } from '../../redux/actions.js'
+import style from './Navbar.module.css'
 
 function Navbar() {
 
@@ -14,9 +15,10 @@ function Navbar() {
         navigate(`/main`)
     }
     return (
-        <div>
-            <nav>
-                <ul>
+        <div className={style.menu}>
+            <nav className={style.nav}>
+            <h4 className={style.nav__title}>food Recipes</h4>
+                <ul className={style.nav__item}>
                     <li onClick={handleClick} >Home</li>
                     <li onClick={() => navigate(`/main/create`)}>Create</li>
                 </ul>

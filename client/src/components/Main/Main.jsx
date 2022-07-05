@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 
 import { getRecipesAll } from "../../redux/actions.js";
+import Footer from "../Footer/Footer.jsx";
 import Navbar from "../Navbar/Navbar.jsx";
 import Options from '../Options/Options.jsx'
 import Pagination from "../Pagination/Pagination.jsx";
 import Recipe from "../Recipe/Recipe.jsx";
+import style from './Main.module.css';
 
 function Main() {
 
@@ -18,7 +19,6 @@ function Main() {
         indexLastRecipe: (currentPage * recipesPerPage),
         indexFirstRecipe: (currentPage * recipesPerPage) - recipesPerPage,
     })
-    const navigate = useNavigate()
     const recipes = useSelector(state => state.recipes)
 
     useEffect(() => {
@@ -34,24 +34,26 @@ function Main() {
     return (
         <div>
             <Navbar></Navbar>
-            <h1>Hey! i'm Main</h1>
-            <button onClick={(e) => navigate('/main/create')} >CREATE</button>
+            <header>let's take a look to some niiice food... may be to cook, why not?</header>
             <Options></Options>
             <Pagination></Pagination>
-            {
-                recipes.length !== 0
-                    ? recipes
-                        .slice(indexRecipe.indexFirstRecipe, indexRecipe.indexLastRecipe)
-                        .map((r, i) => (<Recipe
-                            dietTypes={r.dietTypes}
-                            id={r.id}
-                            image={r.image}
-                            key={`${r.title}-${i}`}
-                            title={r.title}
-                        />))
-                    : (<h3>Ups! It seems there is not recipes with it!</h3>)
-            }
+            <div className={style.container__recipes}>
+                {
+                    recipes.length !== 0
+                        ? recipes
+                            .slice(indexRecipe.indexFirstRecipe, indexRecipe.indexLastRecipe)
+                            .map((r, i) => (<Recipe
+                                dietTypes={r.dietTypes}
+                                id={r.id}
+                                image={r.image}
+                                key={`${r.title}-${i}`}
+                                title={r.title}
+                            />))
+                        : (<h3>Ups! It seems there is not recipes with it!</h3>)
+                }
+            </div>
             <Pagination></Pagination>
+            <Footer></Footer>
         </div>
     )
 }

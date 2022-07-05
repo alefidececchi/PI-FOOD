@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { getRecipeDetails } from '../../redux/actions.js'
+import style from './Recipe.module.css';
 
 
 function Recipe({ id, image, dietTypes, title, }) {
@@ -16,10 +17,10 @@ function Recipe({ id, image, dietTypes, title, }) {
     }
 
     return (
-        <div onClick={handleClick}>
+        <div className={style.recipe} onClick={handleClick}>
             <h3>{title}</h3>
             <img src={image} alt={title} />
-            <div>
+            <div className={style.recipe__dietTypes}>
                 {dietTypes.map((d, i) => <span key={`${d}-${i}`}> {d} </span>)}
             </div>
         </div>

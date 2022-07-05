@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { getRecipeDetails, getRecipesAll, resetRecipesDetails } from '../../redux/actions.js'
+import Footer from "../Footer/Footer.jsx";
 import Navbar from "../Navbar/Navbar.jsx";
+import style from './RecipeDetail.module.css';
 
 
 function RecipeDetail() {
@@ -34,7 +36,7 @@ function RecipeDetail() {
                                 <h1>{title}</h1>
                             </div>
                             <div>
-                                <p>{summary}</p>
+                                <p dangerouslySetInnerHTML={{__html: summary}} ></p>
                             </div>
                             <div>
                                 {
@@ -74,6 +76,7 @@ function RecipeDetail() {
                         </div>
                     </div>
             }
+            <Footer></Footer>
         </div>
     )
 }

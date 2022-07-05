@@ -25,6 +25,7 @@ function SelectOrder() {
     }
     return (
         <div>
+            <label htmlFor="selectOrder"> sort by: </label>
             <select name="selectOrder" onChange={orderFn} value={orderType} >
                 <option value="default" > - Default - </option>
                 <option value="AZ" > A - Z </option>

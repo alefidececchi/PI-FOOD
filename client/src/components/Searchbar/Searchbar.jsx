@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { getRecipesByName, resetRecipes, setCurrentPage } from '../../redux/actions.js'
-
+import style from './Searchbar.module.css'
 
 function Searchbar() {
 
@@ -23,8 +23,8 @@ function Searchbar() {
     }
 
     return (
-        <div>
-            <input name="inputSearch" onChange={handleChange} type={"text"} value={input} />
+        <div className={style.container}>
+            <input name="inputSearch" onChange={handleChange} placeholder=" recipe..." type={"text"} value={input} />
             <button onClick={handleClick} > search </button>
         </div>
     )

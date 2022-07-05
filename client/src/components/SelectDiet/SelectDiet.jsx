@@ -20,7 +20,8 @@ function SelectDiet() {
 
     return (
         <div>
-            <select onChange={selectDiet} value={filterType}>
+        <label htmlFor="dietType"> filter by diet: </label>
+            <select name="dietType" onChange={selectDiet} value={filterType}>
                 <option value='none'> none </option>
                 {
                     diets.map((d, i) => <option key={`${d}-${i}`} value={d} > {d} </option>)

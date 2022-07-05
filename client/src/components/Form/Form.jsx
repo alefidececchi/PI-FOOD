@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { createRecipe, getRecipesAll } from '../../redux/actions.js'
+import Footer from "../Footer/Footer.jsx";
 import Navbar from "../Navbar/Navbar.jsx";
 
 
@@ -221,6 +222,7 @@ function Form() {
                     ? (<div><p>{message}</p></div>)
                     : (<></>)
             }
+            <Footer></Footer>
         </div>
     )
 }
