@@ -1,0 +1,79 @@
+input,
+textarea {
+    margin: 0px;
+    display: block;
+    border: solid 0.5px;
+    width: 100%;
+    border-radius: 8px;
+}
+
+textarea {
+    resize: none;
+    block-size: 150px;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container__wrapper {
+    width: 1220px;
+    height: 860px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    border: solid 1px black;
+}
+
+.container__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.container__img {
+    width: 500px;
+    height: 500px;
+}
+
+.container__divForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100px;
+    width: 480px;
+}
+
+.container__divDietTypes {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 300px;
+    width: 480px;
+}
+
+.container__divTypes {
+    display: -ms-flex;
+	display: -webkit-flex;
+	display: flex;
+}
+
+.divTypes {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 50%;
+}
+
+.div__error {
+    color: rgb(252, 58, 58);
+}

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { createRecipe, getRecipesAll } from '../../redux/actions.js'
+import { createRecipe, getDiets, getRecipesAll } from '../../redux/actions.js'
 import Footer from "../Footer/Footer.jsx";
 import Navbar from "../Navbar/Navbar.jsx";
+import style from './Form.module.css';
+
 
 
 function Form() {
@@ -115,113 +117,116 @@ function Form() {
     }
 
     useEffect(() => {
+        dispatch(getDiets())
         dispatch(getRecipesAll('none'))
-    })
+    }, [dispatch])
 
     return (
-        <div>
+        <div className={style.container}>
             <Navbar></Navbar>
-            <div>
-                <img alt='no-name' />
-            </div>
-            <div className="wrapper">
-                <form onSubmit={handleSubmit} >
-                    <div>
-                        <label> Title </label>
-                        <input
-                            name="title"
-                            onChange={handleInputChanges}
-                            onSelect={handleSelect}
-                            value={input.title}
-                        />
-                        {errors.title && (<p>{errors.title}</p>)}
-                    </div>
-                    <div>
-                        <label> Summary </label>
-                        <textarea
-                            name="summary"
-                            onChange={handleInputChanges}
-                            onSelect={handleSelect}
-                            value={input.summary}
-                        />
-                        {errors.summary && (<p>{errors.summary}</p>)}
-                    </div>
-                    <div>
-                        <label> Health score </label>
-                        <input
-                            max={100}
-                            min={0}
-                            name="healthScore"
-                            onChange={handleInputChanges}
-                            type={"range"}
-                            value={input.healthScore}
-                        />
-                        <span> {input.healthScore} </span>
-                    </div>
-                    <div>
-                        <label> Steps </label>
-                        <input
-                            name="steps"
-                            onChange={handleInputChanges}
-                            onSelect={handleSelect}
-                            value={input.steps}
-                        />
-                        {errors.steps && (<p>{errors.steps}</p>)}
-                    </div>
-                    <div>
-                        <label> Diet types </label>
+            <div className={style.container__wrapper}>
+                <div>
+                    <img className={style.container__img} src="https://i1.adis.ws/i/canon/pro-inside-professional-food-photography-1_46a998f373b44dc583ee52d9448ece04?$media-collection-full-dt-jpg$" alt='no-name' />
+                </div>
+                <div>
+                    <form className={style.container__form} onSubmit={handleSubmit} >
+                        <div className={style.container__divForm}>
+                            <label> Title </label>
+                            <input
+                                name="title"
+                                onChange={handleInputChanges}
+                                onSelect={handleSelect}
+                                value={input.title}
+                            />
+                            {errors.title && (<p className={style.div__error} >{errors.title}</p>)}
+                        </div>
+                        <div className={style.container__divForm}>
+                            <label> Summary </label>
+                            <textarea
+                                name="summary"
+                                onChange={handleInputChanges}
+                                onSelect={handleSelect}
+                                value={input.summary}
+                            />
+                            {errors.summary && (<p className={style.div__error}>{errors.summary}</p>)}
+                        </div>
+                        <div className={style.container__divForm}>
+                            <label> Health score </label>
+                            <input
+                                max={100}
+                                min={0}
+                                name="healthScore"
+                                onChange={handleInputChanges}
+                                type={"range"}
+                                value={input.healthScore}
+                            />
+                            <span> {input.healthScore} </span>
+                        </div>
+                        <div className={style.container__divForm}>
+                            <label> Steps </label>
+                            <input
+                                name="steps"
+                                onChange={handleInputChanges}
+                                onSelect={handleSelect}
+                                value={input.steps}
+                            />
+                            {errors.steps && (<p className={style.div__error}>{errors.steps}</p>)}
+                        </div>
+                        <div className={style.container__divDietTypes}>
+                            <label> Diet types </label>
+                            <div className={style.container__divTypes}>
+                                {
+                                    diets.map((d, i) => {
+                                        return (
+                                            <div className={style.divTypes} key={`${d}-${i}`}>
+                                                <input
+                                                    className="inputDiet"
+                                                    name="dietTypes"
+                                                    onChange={handleInputChanges}
+                                                    onMouseOver={handleSelect}
+                                                    onSelect={handleSelect}
+                                                    type={"checkbox"}
+                                                    value={d}></input>
+                                                <label>{d}</label>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+                            {errors.dietTypes && (<p className={style.div__error}>{errors.dietTypes}</p>)}
+                        </div>
+                        <div className={style.container__divForm}>
+                            <label> Image (link) </label>
+                            <input
+                                onSelect={handleSelect}
+                                name="image"
+                                onChange={handleInputChanges}
+                                type={"text"}
+                                value={input.image}
+                            />
+                            {errors.image && (<p className={style.div__error}>{errors.image}</p>)}
+                        </div>
                         <div>
                             {
-                                diets.map((d, i) => {
-                                    return (
-                                        <div key={`${d}-${i}`}>
-                                            <input
-                                                className="inputDiet"
-                                                name="dietTypes"
-                                                onChange={handleInputChanges}
-                                                onMouseOver={handleSelect}
-                                                onSelect={handleSelect}
-                                                type={"checkbox"}
-                                                value={d}></input>
-                                            <label>{d}</label>
-                                        </div>
-                                    )
-                                })
+                                Object.values(errors).length !== 0
+                                    || Object.values(click).find(value => !value) !== undefined
+                                    || input.dietTypes.length === 0
+                                    || input.image.length === 0
+                                    || input.steps.length === 0
+                                    || input.summary.length === 0
+                                    || input.title.length === 0
+                                    ? (<p type="submit"></p>)
+                                    : (<button type="submit"> Create </button>)
                             }
-                            {errors.dietTypes && (<p>{errors.dietTypes}</p>)}
                         </div>
-                    </div>
-                    <div>
-                        <label> Image (link) </label>
-                        <input
-                            onSelect={handleSelect}
-                            name="image"
-                            onChange={handleInputChanges}
-                            type={"text"}
-                            value={input.image}
-                        />
-                        {errors.image && (<p>{errors.image}</p>)}
-                    </div>
-                    <div>
-                        {
-                            Object.values(errors).length !== 0
-                                || Object.values(click).find(value => !value) !== undefined
-                                || input.dietTypes.length === 0
-                                || input.image.length === 0
-                                || input.steps.length === 0
-                                || input.summary.length === 0
-                                || input.title.length === 0
-                                ? (<p type="submit"></p>)
-                                : (<button type="submit"> Create </button>)
-                        }
-                    </div>
-                </form>
+                    </form>
+                </div>
+                {
+                    message !== ''
+                        ? (<div><p>{message}</p></div>)
+                        : (<></>)
+                }
             </div>
-            {
-                message !== ''
-                    ? (<div><p>{message}</p></div>)
-                    : (<></>)
-            }
             <Footer></Footer>
         </div>
     )

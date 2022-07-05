@@ -1,4 +1,12 @@
- .container__recipes {
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.container__recipes {
      display: flex;
      flex-wrap: wrap;
      justify-content: center;

@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { filterSelected, getRecipesAll, order, setCurrentPage, setOrder } from '../../redux/actions.js'
+import { filterSelected, getRecipesAll, setCurrentPage, setOrder } from '../../redux/actions.js'
 
 
 function SelectDiet() {

@@ -16,6 +16,7 @@ function Home() {
 
     return (
         <div>
+            <img src="https://img.freepik.com/foto-gratis/ingredientes-italianos-apetitosos-frescos-sabrosos-comida-viejo-fondo-madera-rustico-listo-cocinar-inicio-italiano-comida-saludable-concepto-cocina_1220-1740.jpg?w=2000" alt="ingredients-background" ></img>
             <button onClick={() => navigate('/main')} > Let's cook! </button>
         </div>
     )

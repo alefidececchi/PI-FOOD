@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from 'react-redux'
 
 import { setCurrentPage } from "../../redux/actions";
-
+import style from './Pagination.module.css';
 
 function Pagination() {
 
@@ -29,7 +29,7 @@ function Pagination() {
                 <h3>currentPage: {currentPage}</h3>
             }
             {
-                pageNumbers.map((p, i) => <button key={`${p}-${i}`} onClick={handleClick} value={p}>{p}</button>)
+                pageNumbers.map((p, i) => <button className={style.button} key={`${p}-${i}`} onClick={handleClick} value={p}>{p}</button>)
             }
         </div>
     )

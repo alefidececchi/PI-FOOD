@@ -5,23 +5,31 @@ h3 {
 
 .recipe {
     margin: 1.5rem;
+    padding: 15px;
     min-width: 360px;
-    height: 350px;
+    height: 400px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    border: solid 2px rgb(231 118 118 / 38%);
+    border: solid 2px rgb(255 255 255);
     border-radius: 20px;
-    box-shadow: 5px 5px rgb(195 131 131 / 16%);
+    box-shadow: 5px 5px 20px rgb(65 24 24 / 55%);
+    transition: 0.25s;
+    transition-timing-function: ease-in-out;
+    transition-delay: 0s;
 }
 
 .recipe:hover {
-    transition-duration: 1s;
-    transition-property: all;
-    transition-timing-function: ease;
-    transition-delay: 0s;
+    transform: scale(1.1)
 }
+
+.recipe__img {
+    border-radius: 15px;
+    box-shadow: 5px 5px 20px rgb(65 24 24 / 55%);
+    margin-bottom: 13px
+}
+
 
 .recipe__dietTypes {
     width: 360px;
@@ -30,4 +38,10 @@ h3 {
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: flex-start;
+}
+
+.dietType {
+    background-color: rgb(239 207 159 / 46%);
+    padding: 0rem 0.5rem;
+    border-radius: 10px;
 }

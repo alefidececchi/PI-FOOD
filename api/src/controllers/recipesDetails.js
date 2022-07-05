@@ -11,7 +11,7 @@ const getRecipesDetails = async (req = request, res = response) => {
     let { id } = req.params
     try {
         if (Number(id) == id) {
-            console.log(typeof id)
+            // console.log(typeof id)
             id = Number(id)
             const rApiSaved = allRecipesAPI.find(r => r.id === id)
             if (rApiSaved) {

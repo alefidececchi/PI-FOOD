@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getRecipesAll } from "../../redux/actions.js";
+import { getDiets, getRecipesAll } from "../../redux/actions.js";
 import Footer from "../Footer/Footer.jsx";
 import Navbar from "../Navbar/Navbar.jsx";
 import Options from '../Options/Options.jsx'
@@ -25,6 +25,7 @@ function Main() {
         if (!recipes.length && filterType === 'none') {
             dispatch(getRecipesAll('none'))
         }
+        dispatch(getDiets())
         setIndexRecipe({
             indexFirstRecipe: (currentPage * recipesPerPage) - recipesPerPage,
             indexLastRecipe: (currentPage * recipesPerPage),
@@ -32,7 +33,7 @@ function Main() {
     }, [currentPage, dispatch, filterType, recipes, recipesPerPage])
 
     return (
-        <div>
+        <div className={style.container}>
             <Navbar></Navbar>
             <header>let's take a look to some niiice food... may be to cook, why not?</header>
             <Options></Options>

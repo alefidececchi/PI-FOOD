@@ -19,9 +19,10 @@ function Recipe({ id, image, dietTypes, title, }) {
     return (
         <div className={style.recipe} onClick={handleClick}>
             <h3>{title}</h3>
-            <img src={image} alt={title} />
+            <img className={style.recipe__img} src={image} alt={title} />
+            <hr></hr>
             <div className={style.recipe__dietTypes}>
-                {dietTypes.map((d, i) => <span key={`${d}-${i}`}> {d} </span>)}
+                {dietTypes.map((d, i) => <span className={style.dietType} key={`${d}-${i}`}> {d} </span>)}
             </div>
         </div>
     )

@@ -1,0 +1,9 @@
+.button {
+    transition: 0.1s;
+    transition-delay: 0s;
+    margin: 5px;
+}
+
+.button:hover {
+    transform: scale(1.2);
+}

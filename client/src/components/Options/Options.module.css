@@ -24,9 +24,9 @@ button {
     align-items: center;
     width: 800px;
     height: 3rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
     background-color: rgb(233 183 185);
     border-radius: 8px;
+    padding: 0rem 1rem;
+    box-shadow: 5px 5px 20px rgb(65 24 24 / 55%);
 }
 
