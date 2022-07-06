@@ -40,6 +40,8 @@ function Main() {
             <Pagination></Pagination>
             <div className={style.container__recipes}>
                 {
+                    typeof recipes === 'string' ? 
+                    <h3>{recipes}</h3> :
                     recipes.length !== 0
                         ? recipes
                             .slice(indexRecipe.indexFirstRecipe, indexRecipe.indexLastRecipe)
