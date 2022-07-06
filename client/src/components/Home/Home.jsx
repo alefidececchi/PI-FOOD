@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { getDiets, getRecipesAll } from '../../redux/actions.js'
+import style from './Home.module.css';
 
 function Home() {
 
@@ -15,9 +16,9 @@ function Home() {
     }, [dispatch])
 
     return (
-        <div>
-            <img src="https://img.freepik.com/foto-gratis/ingredientes-italianos-apetitosos-frescos-sabrosos-comida-viejo-fondo-madera-rustico-listo-cocinar-inicio-italiano-comida-saludable-concepto-cocina_1220-1740.jpg?w=2000" alt="ingredients-background" ></img>
-            <button onClick={() => navigate('/main')} > Let's cook! </button>
+        <div className={style.container__home}>
+            <h1 className={style.home__h1}>Hey! let's take a look to some nice recipes!... may be to cook, why not?</h1>
+            <button className={style.home__button} onClick={() => navigate('/main')} > Let's cook! </button>
         </div>
     )
 }

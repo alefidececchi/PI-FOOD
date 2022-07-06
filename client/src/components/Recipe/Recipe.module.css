@@ -25,6 +25,8 @@ h3 {
 }
 
 .recipe__img {
+    width: 312px;
+    height: 231px;
     border-radius: 15px;
     box-shadow: 5px 5px 20px rgb(65 24 24 / 55%);
     margin-bottom: 13px

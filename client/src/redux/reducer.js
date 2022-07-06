@@ -25,8 +25,8 @@ const initialState = {
     orderType: 'default',
     recipeDetails: {},
     recipes: [],
-    // recipesFiltered: [],
     recipesPerPage: 9
+    // recipesFiltered: [],
     // recipesApi: [],
     // recipesByName: [],
     // recipesDb: [],

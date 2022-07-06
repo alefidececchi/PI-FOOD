@@ -35,7 +35,7 @@ function Main() {
     return (
         <div className={style.container}>
             <Navbar></Navbar>
-            <header>let's take a look to some niiice food... may be to cook, why not?</header>
+            <header>are you hungry?</header>
             <Options></Options>
             <Pagination></Pagination>
             <div className={style.container__recipes}>

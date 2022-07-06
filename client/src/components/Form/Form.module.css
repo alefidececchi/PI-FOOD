@@ -10,10 +10,17 @@ textarea {
 textarea {
     resize: none;
     block-size: 150px;
+    height: 35px;
+}
+
+textarea::-webkit-scrollbar {
+    display: none;
 }
 
 .container {
+    background-image: url(https://img.freepik.com/foto-gratis/ingredientes-pizza-casera_35641-2533.jpg?w=2000);
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -21,13 +28,13 @@ textarea {
 }
 
 .container__wrapper {
-    width: 1220px;
-    height: 860px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    border: solid 1px black;
+    margin: 40px 0px;
+    width: 1080px;
+    height: 760px;
+    display: grid;
+    grid-template-columns: 540px 540px;
+    border-radius: 15px;
+    background-color: #2f785c85
 }
 
 .container__form {
@@ -38,6 +45,12 @@ textarea {
 }
 
 .container__img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.__img {
     width: 500px;
     height: 500px;
 }
@@ -47,7 +60,7 @@ textarea {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    height: 100px;
+    height: 85px;
     width: 480px;
 }
 
@@ -56,24 +69,40 @@ textarea {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    height: 300px;
+    height: 200px;
     width: 480px;
 }
 
 .container__divTypes {
-    display: -ms-flex;
-	display: -webkit-flex;
-	display: flex;
+    display: grid;
+    grid-template-columns: 220px 220px;
+}
+
+.divForm__button {
+    width: 120px;
+    height: 40px;
+    background-color: #2c856240;
+}
+
+.divForm__span {
+    background-color: rgb(146 237 146 / 57%);
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
 }
 
 .divTypes {
     display: flex;
-    flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    width: 50%;
+}
+
+.divTypes input {
+    resize: none;
+    width: 30px;
 }
 
 .div__error {
+    margin: 0px;
     color: rgb(252, 58, 58);
 }

@@ -125,13 +125,13 @@ function Form() {
         <div className={style.container}>
             <Navbar></Navbar>
             <div className={style.container__wrapper}>
-                <div>
-                    <img className={style.container__img} src="https://i1.adis.ws/i/canon/pro-inside-professional-food-photography-1_46a998f373b44dc583ee52d9448ece04?$media-collection-full-dt-jpg$" alt='no-name' />
+                <div className={style.container__img}>
+                    <img className={style.__img} src="https://i1.adis.ws/i/canon/pro-inside-professional-food-photography-1_46a998f373b44dc583ee52d9448ece04?$media-collection-full-dt-jpg$" alt='no-name' />
                 </div>
                 <div>
                     <form className={style.container__form} onSubmit={handleSubmit} >
                         <div className={style.container__divForm}>
-                            <label> Title </label>
+                            <label> Title: </label>
                             <input
                                 name="title"
                                 onChange={handleInputChanges}
@@ -141,7 +141,7 @@ function Form() {
                             {errors.title && (<p className={style.div__error} >{errors.title}</p>)}
                         </div>
                         <div className={style.container__divForm}>
-                            <label> Summary </label>
+                            <label> Summary: </label>
                             <textarea
                                 name="summary"
                                 onChange={handleInputChanges}
@@ -151,7 +151,7 @@ function Form() {
                             {errors.summary && (<p className={style.div__error}>{errors.summary}</p>)}
                         </div>
                         <div className={style.container__divForm}>
-                            <label> Health score </label>
+                            <label> Health score: </label>
                             <input
                                 max={100}
                                 min={0}
@@ -160,10 +160,10 @@ function Form() {
                                 type={"range"}
                                 value={input.healthScore}
                             />
-                            <span> {input.healthScore} </span>
+                            <span className={style.divForm__span} > {input.healthScore} </span>
                         </div>
                         <div className={style.container__divForm}>
-                            <label> Steps </label>
+                            <label> Steps: </label>
                             <input
                                 name="steps"
                                 onChange={handleInputChanges}
@@ -173,7 +173,7 @@ function Form() {
                             {errors.steps && (<p className={style.div__error}>{errors.steps}</p>)}
                         </div>
                         <div className={style.container__divDietTypes}>
-                            <label> Diet types </label>
+                            <label> Diet types: </label>
                             <div className={style.container__divTypes}>
                                 {
                                     diets.map((d, i) => {
@@ -187,7 +187,7 @@ function Form() {
                                                     onSelect={handleSelect}
                                                     type={"checkbox"}
                                                     value={d}></input>
-                                                <label>{d}</label>
+                                                <label htmlFor="dietTypes" >{d}</label>
                                             </div>
                                         )
                                     })
@@ -196,7 +196,7 @@ function Form() {
                             {errors.dietTypes && (<p className={style.div__error}>{errors.dietTypes}</p>)}
                         </div>
                         <div className={style.container__divForm}>
-                            <label> Image (link) </label>
+                            <label> Image (link): </label>
                             <input
                                 onSelect={handleSelect}
                                 name="image"
@@ -206,7 +206,7 @@ function Form() {
                             />
                             {errors.image && (<p className={style.div__error}>{errors.image}</p>)}
                         </div>
-                        <div>
+                        <div className={style.container__divForm}>
                             {
                                 Object.values(errors).length !== 0
                                     || Object.values(click).find(value => !value) !== undefined
@@ -216,7 +216,7 @@ function Form() {
                                     || input.summary.length === 0
                                     || input.title.length === 0
                                     ? (<p type="submit"></p>)
-                                    : (<button type="submit"> Create </button>)
+                                    : (<button className={style.divForm__button} type="submit"> Create </button>)
                             }
                         </div>
                     </form>

@@ -27,7 +27,7 @@ function RecipeDetail() {
             {
                 !title ?
                     <h3>Loading ...</h3> :
-                    <div>
+                    <div className={style.container}>
                         <div>
                             <img src={image} alt={title}></img>
                         </div>

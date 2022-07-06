@@ -1,0 +1,22 @@
+
+.container__home {
+    background-image: url("https://cloudfront-us-east-1.images.arcpublishing.com/infobae/J3R7JZL3ZZG3ZNIBZSEMC7WALI.jpg");
+    min-height: 100vh;
+    width: 100%;
+    /* background-position: center;
+    background-size: cover; */
+}
+
+.home__h1 {
+    position: relative;
+    width: 350px;
+    left: 200px;
+    top: 350px;
+    color: white;
+}
+
+.home__button {
+    position: relative;
+    top:350px;
+    width: 15rem;
+}

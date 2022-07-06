@@ -17,7 +17,7 @@ function Navbar() {
     return (
         <div className={style.menu}>
             <nav className={style.nav}>
-            <h4 className={style.nav__title}>food Recipes</h4>
+            <h4 className={style.nav__title} onClick={() => navigate(`/main`)}>food Recipes</h4>
                 <ul className={style.nav__item}>
                     <li onClick={handleClick} >Home</li>
                     <li onClick={() => navigate(`/main/create`)}>Create</li>
