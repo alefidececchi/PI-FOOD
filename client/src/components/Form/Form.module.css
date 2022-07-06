@@ -51,6 +51,8 @@ textarea::-webkit-scrollbar {
 }
 
 .__img {
+    border-radius: 15px;
+    box-shadow: 5px 5px 20px rgb(65 24 24 / 55%);
     width: 500px;
     height: 500px;
 }

@@ -221,11 +221,13 @@ function Form() {
                         </div>
                     </form>
                 </div>
-                {
-                    message !== ''
-                        ? (<div><p>{message}</p></div>)
-                        : (<></>)
-                }
+                <div className={style.container__divForm}>
+                    {
+                        message !== ''
+                            ? (<h3>{message}</h3>)
+                            : (<></>)
+                    }
+                </div>
             </div>
             <Footer></Footer>
         </div>

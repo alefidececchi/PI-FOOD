@@ -35,7 +35,7 @@ function Main() {
     return (
         <div className={style.container}>
             <Navbar></Navbar>
-            <header>are you hungry?</header>
+            {/* <header>are you hungry?</header> */}
             <Options></Options>
             <Pagination></Pagination>
             <div className={style.container__recipes}>

@@ -17,7 +17,7 @@ function Home() {
 
     return (
         <div className={style.container__home}>
-            <h1 className={style.home__h1}>Hey! let's take a look to some nice recipes!... may be to cook, why not?</h1>
+            <h1 className={style.home__h1}>Hey! let's take a look to some nice recipes!</h1>
             <button className={style.home__button} onClick={() => navigate('/main')} > Let's cook! </button>
         </div>
     )

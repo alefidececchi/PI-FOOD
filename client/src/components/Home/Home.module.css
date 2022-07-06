@@ -17,6 +17,7 @@
 
 .home__button {
     position: relative;
-    top:350px;
     width: 15rem;
+    top:380px;
+    right: 580px;
 }
