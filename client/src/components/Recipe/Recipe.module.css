@@ -21,7 +21,11 @@ h3 {
 }
 
 .recipe:hover {
-    transform: scale(1.1)
+    transform: scale(1.15)
+}
+
+.recipe:not( :hover) {
+    transform: scale(1);
 }
 
 .recipe__img {
@@ -31,7 +35,6 @@ h3 {
     box-shadow: 5px 5px 20px rgb(65 24 24 / 55%);
     margin-bottom: 13px
 }
-
 
 .recipe__dietTypes {
     width: 360px;

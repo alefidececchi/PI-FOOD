@@ -48,13 +48,8 @@ textarea::-webkit-scrollbar {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.__img {
-    border-radius: 15px;
-    box-shadow: 5px 5px 20px rgb(65 24 24 / 55%);
-    width: 500px;
-    height: 500px;
+    background-image: linear-gradient(to right, rgba(216, 86, 79, 0), white), url("https://i1.adis.ws/i/canon/pro-inside-professional-food-photography-1_46a998f373b44dc583ee52d9448ece04?$media-collection-full-dt-jpg$");
+    border-radius: 15px 0px 0px 15px;
 }
 
 .container__divForm {
@@ -75,9 +70,19 @@ textarea::-webkit-scrollbar {
     width: 480px;
 }
 
+.wrapper__form {
+    background-image: linear-gradient(to left, #2f785c85, white);
+    border-radius: 0px 15px 15px 0px;
+}
+
 .container__divTypes {
     display: grid;
     grid-template-columns: 220px 220px;
+}
+
+.container__message {
+    height: 85px;
+    width: 480px;
 }
 
 .divForm__button {

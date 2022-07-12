@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux'
 
-import { getRecipesAll } from '../../redux/actions.js'
+import { filterSelected, getRecipesAll, message, setOrder } from '../../redux/actions.js'
 import style from './Navbar.module.css'
 
 function Navbar() {
@@ -12,6 +12,9 @@ function Navbar() {
 
     const handleClick = () => {
         dispatch(getRecipesAll('none'))
+        dispatch(setOrder('default'))
+        dispatch(filterSelected('none'))
+        dispatch(message())
         navigate(`/main`)
     }
     return (

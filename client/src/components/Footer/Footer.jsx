@@ -1,13 +1,17 @@
 import React from "react";
 
-function Footer() {
+import style from './Footer.module.css';
 
+
+
+
+function Footer() {
     return (
         <div>
-            <div className="container" >
+            <div className={style.container} >
                 <span>Project for Henry bootcamp</span>
                 <hr />
-                <span>Done by ale.fidececchi</span>
+                <span>Done with &#10084; by ale.fidececchi</span>
             </div>
         </div>
     )

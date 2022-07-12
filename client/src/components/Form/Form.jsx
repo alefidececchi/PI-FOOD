@@ -126,9 +126,9 @@ function Form() {
             <Navbar></Navbar>
             <div className={style.container__wrapper}>
                 <div className={style.container__img}>
-                    <img className={style.__img} src="https://i1.adis.ws/i/canon/pro-inside-professional-food-photography-1_46a998f373b44dc583ee52d9448ece04?$media-collection-full-dt-jpg$" alt='no-name' />
+                    {/* <img className={style.__img} src="https://i1.adis.ws/i/canon/pro-inside-professional-food-photography-1_46a998f373b44dc583ee52d9448ece04?$media-collection-full-dt-jpg$" alt='no-name' /> */}
                 </div>
-                <div>
+                <div className={style.wrapper__form}>
                     <form className={style.container__form} onSubmit={handleSubmit} >
                         <div className={style.container__divForm}>
                             <label> Title: </label>
@@ -215,18 +215,17 @@ function Form() {
                                     || input.steps.length === 0
                                     || input.summary.length === 0
                                     || input.title.length === 0
-                                    ? (<p type="submit"></p>)
+                                    ? (<div className={style.container__divForm}>
+                                        {
+                                            message !== ''
+                                                ? (<h3>{message}</h3>)
+                                                : (<></>)
+                                        }
+                                    </div>)
                                     : (<button className={style.divForm__button} type="submit"> Create </button>)
                             }
                         </div>
                     </form>
-                </div>
-                <div className={style.container__divForm}>
-                    {
-                        message !== ''
-                            ? (<h3>{message}</h3>)
-                            : (<></>)
-                    }
                 </div>
             </div>
             <Footer></Footer>

@@ -1,10 +1,10 @@
-
 .container__home {
     background-image: url("https://cloudfront-us-east-1.images.arcpublishing.com/infobae/J3R7JZL3ZZG3ZNIBZSEMC7WALI.jpg");
     min-height: 100vh;
     width: 100%;
-    /* background-position: center;
-    background-size: cover; */
+    transition: 0.25s;
+    transition-timing-function: ease-in-out;
+    transition-delay: 0s;
 }
 
 .home__h1 {
@@ -17,7 +17,22 @@
 
 .home__button {
     position: relative;
-    width: 15rem;
-    top:380px;
+    width: 20rem;
+    height: 2.5rem;
+    top: 380px;
     right: 580px;
+}
+
+.home__button:hover {
+    transition: 0.25s;
+    transition-timing-function: ease-in-out;
+    transition-delay: 0s;
+    transform: scale(1.2);
+}
+
+.home__button:not( :hover) {
+    transition: 0.25s;
+    transition-timing-function: ease-in-out;
+    transition-delay: 0s;
+    transform: scale(1);
 }
